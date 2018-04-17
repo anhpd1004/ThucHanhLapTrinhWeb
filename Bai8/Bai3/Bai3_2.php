@@ -16,6 +16,32 @@
         if(isset($_SESSION["row"]))
             $row = $_SESSION["row"];
     ?>
+    <?php 
+    
+    if(isset($_POST['submit'])) {
+        $hoten = $_POST['hoten'];
+        $tach = explode(" ", $hoten);
+        $len = count($tach);
+        $ten = $tach[$len - 1];
+        $ho = "";
+        for($i = 0; $i <  $len - 1; $i++) {
+            $ho .= $tach[$i] . " ";
+        }
+        $conn = mysqli_connect("localhost", "root", "", "qlsinhvien") or die("Không thể kết nối đến SERVER");
+        mysqli_set_charset($conn, "utf8");
+        $sql = "
+            UPDATE sinhvien
+            SET hosv='$ho', tensv='$ten', ngaysinh='{$_POST['ngaysinh']}', diachi='{$_POST['diachi']}', makh='{$_POST['makh']}'
+            WHERE masv='{$row['masv']}'
+        ";
+        mysqli_query($conn, $sql) or die ("Error: " . mysqli_error($conn));
+        $row['hosv'] = $ho;
+        $row['tensv'] = $ten;
+        $row['ngaysinh'] = $_POST['ngaysinh'];
+        $row['diachi'] = $_POST['diachi'];
+        $row['makh'] = $_POST['makh'];
+    }
+?> 
     <table border="1">
     <form method='post'>
         <TR>
@@ -52,26 +78,6 @@
         </tr>
         </form>
     </table>
-    <?php 
     
-        if(isset($_POST['submit'])) {
-            $hoten = $_POST['hoten'];
-            $tach = explode(" ", $hoten);
-            $len = count($tach);
-            $ten = $tach[$len - 1];
-            $ho = "";
-            for($i = 0; $i <  $len - 1; $i++) {
-                $ho .= $tach[$i] . " ";
-            }
-            $conn = mysqli_connect("localhost", "root", "", "qlsinhvien") or die("Không thể kết nối đến SERVER");
-            mysqli_set_charset($conn, "utf8");
-            $sql = "
-                UPDATE sinhvien
-                SET hosv='$ho', tensv='$ten', ngaysinh='{$_POST['ngaysinh']}', diachi='{$_POST['diachi']}', makh='{$_POST['makh']}'
-                WHERE masv='{$row['masv']}'
-            ";
-            mysqli_query($conn, $sql) or die ("Error: " . mysqli_error($conn));
-        }
-    ?> 
 </body>
 </html>
