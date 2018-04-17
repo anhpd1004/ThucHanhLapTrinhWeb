@@ -7,6 +7,8 @@
     <title>Document</title>
 </head>
 <body>
+<h1>Phạm Duy Anh - 20155076</h1>
+
     <?php 
         $host = "localhost";
         $username = "root";

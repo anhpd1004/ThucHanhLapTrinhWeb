@@ -27,6 +27,8 @@
     </script>
 </head>
 <body>
+<h1>Phạm Duy Anh - 20155076</h1>
+
     <table>
         <form name="frmPHP" method="post" action="bai3_1.php" onsubmit="return checkInput();">
         <tr>
